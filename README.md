@@ -1,1 +1,1 @@
-# VocabCard
+# VocaBuddy
