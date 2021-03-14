@@ -4,10 +4,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class VocabuddyApplication {
+public class VocabuddyoAuth {
 
 	public static void main(String[] args) {
-		SpringApplication.run(VocabuddyApplication.class, args);
+		SpringApplication.run(VocabuddyoAuth.class, args);
 	}
 
 }
