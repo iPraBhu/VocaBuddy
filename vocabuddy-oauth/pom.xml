@@ -10,21 +10,24 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.adevguide</groupId>
-	<artifactId>vocabuddy-discovery</artifactId>
+	<artifactId>vocabuddy-oauth</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>vocabuddy-discovery</name>
-	<description>Eureka Discovery Server for VocaBuddy</description>
+	<name>Vocabuddy</name>
+	<description>Vocabuddy</description>
 
 	<properties>
 		<java.version>11</java.version>
 		<spring-cloud.version>Hoxton.SR8</spring-cloud.version>
-		<heroku.appName>vocabuddy-discovery</heroku.appName>
 	</properties>
 
 	<dependencies>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>org.springframework.cloud</groupId>
-			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+			<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
 		</dependency>
 
 		<dependency>
@@ -38,6 +41,11 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -53,31 +61,22 @@
 	</dependencyManagement>
 
 	<build>
-	<sourceDirectory>vocabuddy-discovery/src/</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-			<plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-jar-plugin</artifactId>
-      <version>2.3.1</version>
-      <configuration>
-        <outputDirectory>vocabuddy-discovery/target/</outputDirectory>
-      </configuration>
-    </plugin>
 
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>3.0.4</version>
 				<configuration>
-				<jdkVersion>11</jdkVersion>
+					<jdkVersion>11</jdkVersion>
 					<appName>${heroku.appName}</appName>
 					<processTypes>
-						<web>java $JAVA_OPTS -jar target/vocabuddy-discovery-0.0.1-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -cp -jar
+							target/vocabuddy*.jar</web>
 					</processTypes>
 				</configuration>
 			</plugin>

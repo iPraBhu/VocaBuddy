@@ -26,18 +26,11 @@
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
 		</dependency>
-
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
-				</exclusion>
-			</exclusions>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
+
 	</dependencies>
 
 	<dependencyManagement>
@@ -53,31 +46,23 @@
 	</dependencyManagement>
 
 	<build>
-	<sourceDirectory>vocabuddy-discovery/src/</sourceDirectory>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
-			
-			<plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-jar-plugin</artifactId>
-      <version>2.3.1</version>
-      <configuration>
-        <outputDirectory>vocabuddy-discovery/target/</outputDirectory>
-      </configuration>
-    </plugin>
 
 			<plugin>
 				<groupId>com.heroku.sdk</groupId>
 				<artifactId>heroku-maven-plugin</artifactId>
 				<version>3.0.4</version>
 				<configuration>
-				<jdkVersion>11</jdkVersion>
+					<jdkVersion>11</jdkVersion>
 					<appName>${heroku.appName}</appName>
 					<processTypes>
-						<web>java $JAVA_OPTS -jar target/vocabuddy-discovery-0.0.1-SNAPSHOT.jar</web>
+						<web>java $JAVA_OPTS -Dserver.port=$PORT -cp
+							target/classes:target/dependency/*
+							com.adevguide.vocabuddy.VocabuddyDiscoveryApplication</web>
 					</processTypes>
 				</configuration>
 			</plugin>
