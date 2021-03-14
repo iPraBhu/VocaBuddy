@@ -1,3 +1,0 @@
-# VocaBuddy
-
-## Description
